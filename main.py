@@ -54,7 +54,45 @@ def business_data():
     return args
 
 
+def create_contacts(type_of: str, how_many: int) -> list:
+    """Created list of business contacts
+
+    Args:
+        type_of (str): Two possible types: simple, business
+        how_many (int): specifies the quantity
+    """
+    if isinstance(how_many, int):
+        pass
+    else:
+        print('Improper type attribute, try intiger')
+        return []
+
+    if type_of in ['simple', 'business']:
+        pass
+    else:
+        print('Improper type attribute, try: simple or business')
+        return []
+
+    list_of_cards = []
+    for i in range(how_many):
+        if type_of == 'simple':
+            list_of_cards.append(base_data())
+        elif type_of == 'business':
+            list_of_cards.append(business_data() + base_data())
+    return list_of_cards
+
+
 if __name__ == '__main__':
-    business_contact = BusinessContact(*business_data(), *base_data())
-    business_contact.contact()
-    print(business_contact.label_length)
+    type_of = input("Podaj typ wizytówki - simple lub business: ")
+    how_many = int(input("Wprowadź liczbę wizytówek: "))
+    contacts = create_contacts(type_of, how_many)
+
+    for contact in contacts:
+        if contacts == []:
+            break
+        if type_of == 'simple':
+            b_card = BaseContact(*contact)
+            b_card.contact()
+        if type_of == 'business':
+            b_card = BusinessContact(*contact)
+            b_card.contact()

@@ -13,6 +13,22 @@ class BaseContact:
     def __repr__(self):
         return f'{self.name} {self.surname} {self.phone_number} {self.email}'
 
+    def contact(self):
+        print('Wybieram numer {} i dzwonię do {} {}'
+              .format(self.phone_number, self.name, self.surname))
+
+
+class BusinessContact(BaseContact):
+    def __init__(self, job, company, job_phone_number, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.job = job
+        self.company = company
+        self.job_phone_number = job_phone_number
+
+    def contact(self):
+        print('Wybieram numer {} i dzwonię do {} {}'
+              .format(self.job_phone_number, self.name, self.surname))
+
 
 def base_data():
     fullname = fake.name()
@@ -34,5 +50,5 @@ def business_data():
 
 
 if __name__ == '__main__':
-    bussiness_card = BaseContact(*base_data())
-    print(bussiness_card)
+    business_contact = BusinessContact(*base_data(), *business_data())
+    business_contact.contact()

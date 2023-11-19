@@ -17,10 +17,15 @@ class BaseContact:
         print('Wybieram numer {} i dzwonię do {} {}'
               .format(self.phone_number, self.name, self.surname))
 
+    @property
+    def label_length(self):
+        return len(self.name + self.surname) + 1
+
 
 class BusinessContact(BaseContact):
-    def __init__(self, job, company, job_phone_number, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, job, company, job_phone_number, *args):
+        super().__init__(*args)
+        super().label_length
         self.job = job
         self.company = company
         self.job_phone_number = job_phone_number
@@ -50,5 +55,6 @@ def business_data():
 
 
 if __name__ == '__main__':
-    business_contact = BusinessContact(*base_data(), *business_data())
+    business_contact = BusinessContact(*business_data(), *base_data())
     business_contact.contact()
+    print(business_contact.label_length)
